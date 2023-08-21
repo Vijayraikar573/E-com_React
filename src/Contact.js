@@ -1,6 +1,29 @@
 import styled from "styled-components";
+import {useAuth0} from "@auth0/auth0-react";
 
 const Contact = () => {
+
+  const {isAuthenticated,user}=useAuth0();
+  return (
+    <Wrapper>
+    <h2 className="common-heading">Contact Page</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.105261526381!2d77.57754!3d12.96511575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae160987431df5%3A0x45f318bfb67f33e1!2sKR%20Market%2C%20Huriopet%2C%20Chickpet%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1690443477207!5m2!1sen!2sin" width="100%" height="400" style={{border:0}} allowFullScreen="" loading="lazy" title="myMap" referrerPolicy="no-referrer-when-downgrade">Maps</iframe>
+    <div className="container">
+      <div className="contact-form">
+        <form action="https://formspree.io/f/mleyggjk" method="POST" className="contact-inputs">
+          <input type="text" placeholder="username" name="username" value={isAuthenticated?user.name:""} required autoComplete="off"/>
+          <input type="email" placeholder="email" name="Email" value={isAuthenticated?user.Email:""}required autoComplete="off" />
+          <textarea name="Message" cols="30" rows="10" required autoComplete="off" placeholder="Enter your message">
+            
+          </textarea>
+          <input type="submit" value="send" />
+          
+        </form>
+      </div>
+    </div>
+    </Wrapper>
+    );
+};
   const Wrapper = styled.section`
     padding: 9rem 0 5rem 0;
     text-align: center;
@@ -32,8 +55,4 @@ const Contact = () => {
       }
     }
   `;
-
-  return <Wrapper></Wrapper>;
-};
-
 export default Contact;
